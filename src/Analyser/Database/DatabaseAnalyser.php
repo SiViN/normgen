@@ -91,7 +91,8 @@ class DatabaseAnalyser implements IAnalyser
 
             // Analyse ENUM
             if ($col['nativetype'] === ColumnTypes::NATIVE_TYPE_ENUM) {
-                $enum = Strings::matchAll($col['vendor']['Type'], ColumnTypes::NATIVE_REGEX_ENUM, PREG_PATTERN_ORDER);
+                $type = $col['vendor']['Type'] ?? $col['vendor']['type'];
+                $enum = Strings::matchAll($type, ColumnTypes::NATIVE_REGEX_ENUM, PREG_PATTERN_ORDER);
                 if ($enum) {
                     $column->setEnum($enum[1]);
                     $column->setType(ColumnTypes::TYPE_ENUM);
